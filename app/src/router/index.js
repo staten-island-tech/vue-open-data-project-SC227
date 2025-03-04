@@ -10,7 +10,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/pokemon/:id',
+      path: '/resource/jb7j-dtam.json?year=:id',
       //:id represents variable in the URL
       name: 'Data',
       // route level code-splitting
