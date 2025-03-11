@@ -10,6 +10,16 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/',
+      name: 'death-count',
+      component: BarView,
+    },
+    {
+      path: '/',
+      name: 'cause-of-death',
+      component: PieView,
+    },
+    {
       path: '/resource/jb7j-dtam.json?year=:id',
       //:id represents variable in the URL
       name: 'Data',
