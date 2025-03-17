@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-const config = {
+const chart = new Chart(ctx, {
   type: 'pie',
   data: {
     labels: ['Red', 'Blue', 'Yellow'],
@@ -16,7 +16,7 @@ const config = {
       },
     ],
   },
-}
+})
 </script>
 
 <style scoped></style>

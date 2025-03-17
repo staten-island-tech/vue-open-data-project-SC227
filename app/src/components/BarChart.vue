@@ -7,7 +7,8 @@
 
 <script setup>
 import { ref } from 'vue'
-const config = {
+import { Chart } from 'chart.js'
+const chart = new Chart(ctx, {
   type: 'bar',
   data: {
     labels: labels,
@@ -44,7 +45,7 @@ const config = {
       },
     },
   },
-}
+})
 </script>
 
 <style scoped></style>
