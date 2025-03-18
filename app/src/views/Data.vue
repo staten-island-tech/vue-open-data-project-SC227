@@ -11,11 +11,10 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 const death = ref('')
 async function getData() {
-  let res = await fetch(
-    `https://data.cityofnewyork.us/resource/jb7j-dtam.json?year=${route.params.id}`,
-  )
+  let res = await fetch(`https://data.cityofnewyork.us/resource/jb7j-dtam.json?$limit=150`)
   let data = await res.json()
   death.value = data
+  console.log(data)
 }
 
 onMounted(() => {

@@ -10,14 +10,14 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/',
+      path: '/bar',
       name: 'death-count',
-      component: BarView,
+      component: () => import('../views/BarView.vue'),
     },
     {
-      path: '/',
+      path: '/pie',
       name: 'cause-of-death',
-      component: PieView,
+      component: () => import('../views/PieView.vue'),
     },
     {
       path: '/resource/jb7j-dtam.json?year=:id',
