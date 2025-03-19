@@ -1,15 +1,16 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
   <div>
     <nav>
-      <RouterLink class="home-link" to="/">Home</RouterLink>
-      <RouterLink class="bar-link" to="/bar">Death Count</RouterLink>
-      <RouterLink class="pie-link" to="/pie">Cause of Deaths</RouterLink>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/bar">Death Count</RouterLink>
+      <RouterLink to="/pie">Cause of Deaths</RouterLink>
     </nav>
   </div>
+  <RouterView />
 </template>
 
 <style scoped></style>
