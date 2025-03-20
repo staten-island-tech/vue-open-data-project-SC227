@@ -1,7 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
   <div>
     <nav>
@@ -9,8 +5,12 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/bar">Death Count</RouterLink>
       <RouterLink to="/pie">Cause of Deaths</RouterLink>
     </nav>
+    <RouterView />
   </div>
-  <RouterView />
 </template>
+
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+</script>
 
 <style scoped></style>
