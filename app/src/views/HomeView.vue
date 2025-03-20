@@ -12,8 +12,8 @@ const deaths = ref('')
 async function getData() {
   try {
     let res = await fetch('https://data.cityofnewyork.us/resource/jb7j-dtam.json?$limit=150')
-    if (!res.ok) {
-      throw new Error(`HTTP error! Status: ${res.status}`)
+    if (res.status != 200) {
+      throw new Error(response)
     }
     let data = await res.json()
     deaths.value = data
