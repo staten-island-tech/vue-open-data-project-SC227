@@ -1,7 +1,12 @@
 <template>
-  <div></div>
+  <div class="bar-view">
+    <h1>Death Counts by Disease</h1>
+    <BarChart />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import BarChart from '../components/BarChart.vue'
+</script>
 
 <style scoped></style>
