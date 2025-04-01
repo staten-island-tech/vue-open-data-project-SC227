@@ -19,15 +19,6 @@ const router = createRouter({
       name: 'cause-of-death',
       component: () => import('../views/PieView.vue'),
     },
-    {
-      path: '/resource/jb7j-dtam.json?year=:id',
-      //:id represents variable in the URL
-      name: 'Data',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Data.vue'),
-    },
   ],
 })
 

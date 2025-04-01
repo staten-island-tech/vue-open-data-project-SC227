@@ -1,6 +1,6 @@
 <template>
-  <div class="bar-view">
-    <h1>Death Counts by Disease</h1>
+  <div>
+    <h1>Death Count Data</h1>
     <BarChart />
   </div>
 </template>

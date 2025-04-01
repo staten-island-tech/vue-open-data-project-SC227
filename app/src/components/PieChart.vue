@@ -1,22 +1,127 @@
 <template>
-  <div></div>
+  <div class="container">
+    <h2>Cause of Deaths by Race & Ethnicity</h2>
+    <label for="cause-select">Select Cause:</label>
+    <select id="cause-select" v-model="selectedCause" @change="getData">
+      <option v-for="cause in causes" :key="cause" :value="cause">
+        {{ cause }}
+      </option>
+    </select>
+    <canvas ref="chartCanvas"></canvas>
+  </div>
 </template>
 
 <script setup>
-const chart = new Chart(ctx, {
-  type: 'pie',
-  data: {
-    labels: ['Red', 'Blue', 'Yellow'],
-    datasets: [
-      {
-        label: 'e',
-        data: [300, 50, 100],
-        backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
-        hoverOffset: 4,
+import { ref, onMounted } from 'vue'
+import Chart from 'chart.js/auto'
+
+const chartCanvas = ref(null)
+const selectedCause = ref('')
+const causes = ref([])
+let chartInstance = null
+
+async function fetchCauses() {
+  try {
+    const res = await fetch('https://data.cityofnewyork.us/resource/jb7j-dtam.json?$limit=200')
+    if (res.status != 200) {
+      throw new Error(response)
+    }
+
+    const data = await res.json()
+
+    causes.value = [...new Set(data.map((el) => el.leading_cause))]
+
+    if (causes.value.length) {
+      selectedCause.value = causes.value[0]
+      getData()
+    }
+  } catch (error) {
+    console.error(error)
+    alert('Error loading data')
+  }
+}
+
+async function getData() {
+  try {
+    const res = await fetch('https://data.cityofnewyork.us/resource/jb7j-dtam.json?$limit=200')
+    if (res.status != 200) {
+      throw new Error(response)
+    }
+
+    const data = await res.json()
+
+    const filteredData = data.filter((el) => el.leading_cause === selectedCause.value)
+
+    const deathCounts = {}
+    filteredData.forEach((el) => {
+      const race = el.race_ethnicity || 'Unknown'
+      deathCounts[race] = (deathCounts[race] || 0) + parseInt(el.deaths || 0)
+    })
+
+    const labels = Object.keys(deathCounts)
+    const values = Object.values(deathCounts)
+
+    if (chartInstance) {
+      chartInstance.destroy()
+    }
+
+    chartInstance = new Chart(chartCanvas.value, {
+      type: 'pie',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Number of Deaths',
+            data: values,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)',
+              'rgba(255, 159, 64, 0.5)',
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+            ],
+            borderWidth: 1,
+          },
+        ],
       },
-    ],
-  },
-})
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'top' },
+        },
+      },
+    })
+  } catch (error) {
+    console.log(error)
+    alert(error)
+  }
+}
+
+onMounted(fetchCauses)
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  width: 1200px;
+  height: 700px;
+  align-items: center;
+}
+
+canvas {
+  margin: auto;
+}
+
+select {
+  margin: 10px;
+  padding: 5px;
+}
+</style>
