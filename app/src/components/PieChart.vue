@@ -2,7 +2,7 @@
   <div class="container">
     <h2>Cause of Deaths by Race & Ethnicity</h2>
     <label for="cause-select">Select Cause:</label>
-    <select id="cause-select" v-model="selectedCause" @change="getData">
+    <select v-model="selectedCause" @change="getData">
       <option v-for="cause in causes" :key="cause" :value="cause">
         {{ cause }}
       </option>
@@ -15,10 +15,10 @@
 import { ref, onMounted } from 'vue'
 import Chart from 'chart.js/auto'
 
-const chartCanvas = ref(null)
+const chartCanvas = ref('')
 const selectedCause = ref('')
-const causes = ref([])
-let chartInstance = null
+const causes = ref('')
+let chartInstance = ''
 
 async function fetchCauses() {
   try {
@@ -28,16 +28,15 @@ async function fetchCauses() {
     }
 
     const data = await res.json()
-
-    causes.value = [...new Set(data.map((el) => el.leading_cause))]
+    causes.value = data.map((el) => el.leading_cause)
 
     if (causes.value.length) {
       selectedCause.value = causes.value[0]
       getData()
     }
   } catch (error) {
-    console.error(error)
-    alert('Error loading data')
+    console.log(error)
+    alert(error)
   }
 }
 
@@ -49,12 +48,11 @@ async function getData() {
     }
 
     const data = await res.json()
-
     const filteredData = data.filter((el) => el.leading_cause === selectedCause.value)
 
-    const deathCounts = {}
+    const deathCounts = []
     filteredData.forEach((el) => {
-      const race = el.race_ethnicity || 'Unknown'
+      const race = el.race_ethnicity
       deathCounts[race] = (deathCounts[race] || 0) + parseInt(el.deaths || 0)
     })
 
@@ -95,6 +93,7 @@ async function getData() {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: { position: 'top' },
         },
@@ -112,7 +111,7 @@ onMounted(fetchCauses)
 <style scoped>
 .container {
   width: 1200px;
-  height: 700px;
+  height: 500px;
   align-items: center;
 }
 

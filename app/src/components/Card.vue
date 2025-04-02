@@ -1,31 +1,30 @@
 <template>
-  <div class="card">
-    <router-link :to="dataPath" class="card">
-      <h2>{{ cod }}</h2>
-      <h2>{{ year }}</h2>
-    </router-link>
+  <div class="container">
+    <div class="card card-side bg-base-100 shadow-xl">
+      <h2>{{ cause }}</h2>
+      <h2>{{ gender }}</h2>
+      <h2>{{ race }}</h2>
+      <h2>{{ death_rate }}</h2>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-
 const props = defineProps({
-  cod: String,
-  year: String,
+  cause: Object,
+  gender: Object,
+  race: Object,
+  death_rate: Number,
 })
 
 console.log(props)
-
-const dataPath = computed(() => {
-  return `/resource/jb7j-dtam.json?year=${props.year}`
-})
 </script>
 
 <style scoped>
 .card {
-  background-color: pink;
+  background-color: rgb(208, 34, 63);
   border-radius: 8px;
   border-color: salmon;
+  text-align: center;
 }
 </style>

@@ -1,6 +1,14 @@
 <template>
   <div class="container">
-    <Card v-for="death in deaths" :key="death.id" :cod="death.leading_cause" :year="death.year">
+    <h1>All Causes of Death</h1>
+    <Card
+      v-for="death in deaths"
+      :key="death.id"
+      :cause="death.leading_cause"
+      :gender="death.sex"
+      :race="death.race_ethnicity"
+      :death_rate="death.death_rate"
+    >
     </Card>
   </div>
 </template>
