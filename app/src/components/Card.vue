@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="card card-side bg-base-100 shadow-xl">
+    <div class="card">
       <h2>{{ cause }}</h2>
       <h2>{{ gender }}</h2>
       <h2>{{ race }}</h2>
@@ -26,5 +26,9 @@ console.log(props)
   border-radius: 8px;
   border-color: salmon;
   text-align: center;
+}
+
+.container {
+  row-gap: 40px;
 }
 </style>

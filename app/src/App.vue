@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="box">
     <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/bar">Death Count</RouterLink>
-      <RouterLink to="/pie">Cause of Deaths</RouterLink>
+      <RouterLink to="/" class="link">Home</RouterLink>
+      <RouterLink to="/bar" class="link">Death Count</RouterLink>
+      <RouterLink to="/pie" class="link">Cause of Deaths</RouterLink>
     </nav>
     <RouterView />
   </div>
@@ -13,4 +13,14 @@
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
-<style scoped></style>
+<style scoped>
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.link {
+  padding: 40px;
+}
+</style>
